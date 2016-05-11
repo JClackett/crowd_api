@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.decimal :lat
       t.decimal :long
       t.timestamp :endtime
-      t.integer :user_id
+      t.belongs_to :user, index: true
 
       t.timestamps
     end

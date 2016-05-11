@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
-  resources :events
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :user, only: []
+
+  namespace :v1, defaults: { format: :json } do
+    resource :login, only: [:create], controller: :sessions
+    resources :users, only: [:create]
+    resources :events
+  end
 end

@@ -1,4 +1,4 @@
-class Event < ApplicationRecord
+class User < ActiveRecord::Base
 # ------------------------------------------------------------------------------
 # Includes & Extensions
 # ------------------------------------------------------------------------------
@@ -15,28 +15,28 @@ class Event < ApplicationRecord
 # Attributes
 # ------------------------------------------------------------------------------
 
+  devise :database_authenticatable, :recoverable, :validatable
 
 
 # ------------------------------------------------------------------------------
 # Associations
 # ------------------------------------------------------------------------------
 
-  belongs_to :user
+has_many :events
+
 
 # ------------------------------------------------------------------------------
 # Validations
 # ------------------------------------------------------------------------------
 
-  validates :title, presence: true
-  validates :lat, presence: true
-  validates :long, presence: true
-
+validates :email, presence: true
 
 # ------------------------------------------------------------------------------
 # Callbacks
 # ------------------------------------------------------------------------------
 
 
+  after_create :update_access_token!  
 
 # ------------------------------------------------------------------------------
 # Nested Attributes
@@ -78,7 +78,17 @@ protected
 private
 # ------------------------------------------------------------------------------
 
+  def update_access_token!
+    self.access_token = generate_access_token
+    save
+  end
 
+  def generate_access_token
+    loop do
+      token = "#{self.id}:#{Devise.friendly_token}"
+      break token unless User.where(access_token: token).first
+    end
+  end
 
 
 end
