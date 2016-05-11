@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  lat: 9.99
+  long: 9.99
+  endtime: 2016-05-05 13:09:28
+  user_id: 1
+
+two:
+  title: MyString
+  description: MyText
+  lat: 9.99
+  long: 9.99
+  endtime: 2016-05-05 13:09:28
+  user_id: 1
