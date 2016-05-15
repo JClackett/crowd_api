@@ -28,8 +28,6 @@ class Event < ApplicationRecord
 # ------------------------------------------------------------------------------
 
   validates :title, presence: true
-  validates :lat, presence: true
-  validates :long, presence: true
 
 
 # ------------------------------------------------------------------------------

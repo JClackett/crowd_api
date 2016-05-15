@@ -1,10 +1,18 @@
+10.times do
+	User.create(
+		email: Faker::Internet.email,
+		name: Faker::Name.name,
+		uid: Faker::Number.number(10),
+	)
+end
+
 10.times do 
-	event = Event.create(
+	Event.create(
 		title: Faker::Hacker.noun,
 		description: Faker::Hacker.say_something_smart,
 		lat: Faker::Address.latitude,
 		long: Faker::Address.longitude,
 		endtime: Faker::Time.forward(23, :morning),
-		user: User.first
+		user: User.all.sample
 	)
 end

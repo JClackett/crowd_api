@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 # ------------------------------------------------------------------------------
 # Includes & Extensions
 # ------------------------------------------------------------------------------
@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
 # Attributes
 # ------------------------------------------------------------------------------
 
-  devise :database_authenticatable, :recoverable, :validatable
 
 
 # ------------------------------------------------------------------------------
@@ -24,19 +23,17 @@ class User < ActiveRecord::Base
 
 has_many :events
 
-
 # ------------------------------------------------------------------------------
 # Validations
 # ------------------------------------------------------------------------------
 
-validates :email, presence: true
+
 
 # ------------------------------------------------------------------------------
 # Callbacks
 # ------------------------------------------------------------------------------
 
 
-  after_create :update_access_token!  
 
 # ------------------------------------------------------------------------------
 # Nested Attributes
@@ -60,12 +57,25 @@ validates :email, presence: true
 # Class Methods
 # ------------------------------------------------------------------------------
 
+def self.koala(auth)
+	access_token = auth['auth_token']
+	@graph = Koala::Facebook::API.new(access_token)
+	profile = @graph.get_object("me")
+
+	return profile
+end
+
 
 
 # ------------------------------------------------------------------------------
 # Instance Methods
 # ------------------------------------------------------------------------------
 
+def update_details(profile)
+	self.uid =  profile['id']
+	self.name = profile['name']
+	self.email = profile['email']
+end
 
 
 # ------------------------------------------------------------------------------
@@ -78,17 +88,8 @@ protected
 private
 # ------------------------------------------------------------------------------
 
-  def update_access_token!
-    self.access_token = generate_access_token
-    save
-  end
 
-  def generate_access_token
-    loop do
-      token = "#{self.id}:#{Devise.friendly_token}"
-      break token unless User.where(access_token: token).first
-    end
-  end
+
 
 
 end

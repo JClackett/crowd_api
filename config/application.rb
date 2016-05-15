@@ -36,5 +36,6 @@ module Vim
 	             methods: [:get, :put, :post, :patch, :delete, :options]
 	  end
 	end
+
   end
 end

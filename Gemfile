@@ -8,7 +8,6 @@ gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
-gem 'devise'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
@@ -24,6 +23,9 @@ gem 'devise'
 gem 'rack-cors'
 
 gem 'active_model_serializers' , github: 'rails-api/active_model_serializers'
+
+gem "koala", "~> 2.2"
+
 
 
 group :development, :test do
