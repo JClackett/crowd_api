@@ -60,20 +60,22 @@ has_many :events
 def self.koala(auth)
 	access_token = auth['auth_token']
 	@graph = Koala::Facebook::API.new(access_token)
-	profile = @graph.get_object("me")
-
+	profile = @graph.get_object("me?fields=email,name,picture")
 	return profile
 end
-
 
 
 # ------------------------------------------------------------------------------
 # Instance Methods
 # ------------------------------------------------------------------------------
 
-def update_details(profile)
+def update_details(profile, user_params)
+
+	auth = user_params['auth_token']
+	self.auth_token = auth
 	self.uid =  profile['id']
 	self.name = profile['name']
+	self.picture =  profile['picture']['data']['url']
 	self.email = profile['email']
 end
 
