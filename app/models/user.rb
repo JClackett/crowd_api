@@ -64,13 +64,7 @@ def self.koala(auth)
 	return profile
 end
 
-
-# ------------------------------------------------------------------------------
-# Instance Methods
-# ------------------------------------------------------------------------------
-
 def update_details(profile, user_params)
-
 	auth = user_params['auth_token']
 	self.auth_token = auth
 	self.uid =  profile['id']
@@ -78,6 +72,10 @@ def update_details(profile, user_params)
 	self.picture =  profile['picture']['data']['url']
 	self.email = profile['email']
 end
+
+# ------------------------------------------------------------------------------
+# Instance Methods
+# ------------------------------------------------------------------------------
 
 
 # ------------------------------------------------------------------------------
