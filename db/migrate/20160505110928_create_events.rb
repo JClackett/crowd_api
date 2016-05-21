@@ -4,9 +4,10 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :description
       t.integer :user_id
-      t.decimal :lat
-      t.decimal :long
+      t.float :latitude
+      t.float :longitude
       t.timestamp :endtime
+
 
       t.timestamps
     end

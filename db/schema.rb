@@ -13,18 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20160515122244) do
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.text     "description"
+    t.text     "description", limit: 65535
     t.integer  "user_id"
-    t.decimal  "lat"
-    t.decimal  "long"
+    t.float    "latitude",    limit: 24
+    t.float    "longitude",   limit: 24
     t.datetime "endtime"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "uid"
     t.string   "name"
     t.string   "email"

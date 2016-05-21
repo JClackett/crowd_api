@@ -3,9 +3,13 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.all
 
-    render json: @events , each_serializer: EventSerializer
+      coords = [params[:latitude], params[:longitude]]
+
+     @events = Event.near(coords, 100)
+
+      render json: @events , each_serializer: EventSerializer
+
   end
 
   # GET /events/1
@@ -46,6 +50,6 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:title, :description, :lat, :long, :endtime, :user_id)
+      params.require(:event).permit(:title, :description, :latitude, :longitude, :endtime, :user_id)
     end
 end
