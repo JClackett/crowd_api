@@ -10,8 +10,8 @@ end
 	Event.create(
 		title: Faker::Hacker.noun,
 		description: Faker::Hacker.say_something_smart,
-		lat: Faker::Address.latitude,
-		long: Faker::Address.longitude,
+		latitude: Faker::Address.latitude,
+		longitude: Faker::Address.longitude,
 		endtime: Faker::Time.forward(23, :morning),
 		user: User.all.sample
 	)

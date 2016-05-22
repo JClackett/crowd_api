@@ -15,7 +15,7 @@ class Event < ApplicationRecord
 # Attributes
 # ------------------------------------------------------------------------------
 
-
+geocoded_by :where, latitude: :latitude, longitude: :longitude
 
 # ------------------------------------------------------------------------------
 # Associations
