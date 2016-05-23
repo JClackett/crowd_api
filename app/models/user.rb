@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class User < ApplicationRecord
 # ------------------------------------------------------------------------------
 # Includes & Extensions
@@ -33,7 +35,7 @@ has_many :events
 # Callbacks
 # ------------------------------------------------------------------------------
 
-
+before_create :set_access_token
 
 # ------------------------------------------------------------------------------
 # Nested Attributes
@@ -58,18 +60,18 @@ has_many :events
 # ------------------------------------------------------------------------------
 
 def self.koala(auth)
-	access_token = auth['auth_token']
-	@graph = Koala::Facebook::API.new(access_token)
+	facebook_auth_token = auth['facebook_auth_token']
+	@graph = Koala::Facebook::API.new(facebook_auth_token)
 	profile = @graph.get_object("me?fields=email,name,picture")
 	return profile
 end
 
 def update_details(profile, user_params)
-	auth = user_params['auth_token']
-	self.auth_token = auth
-	self.uid =  profile['id']
+	auth = user_params['facebook_auth_token']
+	self.facebook_auth_token = auth
+	self.facebook_id =  profile['id']
 	self.name = profile['name']
-	self.picture =  profile['picture']['data']['url']
+	self.facebook_picture =  profile['picture']['data']['url']
 	self.email = profile['email']
 end
 
@@ -88,6 +90,15 @@ protected
 private
 # ------------------------------------------------------------------------------
 
+
+  def set_access_token
+    return if access_token.present?
+    self.access_token = generate_access_token
+  end
+
+  def generate_access_token
+    SecureRandom.uuid.gsub(/\-/,'')
+  end
 
 
 

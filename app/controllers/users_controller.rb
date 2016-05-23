@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 	end
 
 	def create
-
-		user_auth_id = user_params.slice(:uid)
-		@user = User.find_or_create_by(user_auth_id)
+		
+		facebook_id = user_params.slice(:facebook_id)
+		@user = User.find_or_create_by(facebook_id)
 
 		profile = User.koala(user_params)
 		@user.update_details(profile, user_params)
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
-		params.require(:user).permit(:auth_token, :uid)
+		params.require(:user).permit(:facebook_id, :facebook_auth_token)
 	end
 
 end
