@@ -25,13 +25,14 @@ ActiveRecord::Schema.define(version: 20160515122244) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "uid"
     t.string   "name"
     t.string   "email"
-    t.string   "auth_token"
-    t.string   "picture"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "access_token"
+    t.string   "facebook_auth_token"
+    t.string   "facebook_id"
+    t.string   "facebook_picture"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
 end

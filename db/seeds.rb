@@ -2,7 +2,8 @@
 	User.create(
 		email: Faker::Internet.email,
 		name: Faker::Name.name,
-		uid: Faker::Number.number(10),
+		access_token: Faker::Lorem.characters(30),
+		facebook_id: Faker::Number.number(10),
 	)
 end
 

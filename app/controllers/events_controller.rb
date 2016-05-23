@@ -1,12 +1,15 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
 
+  before_action :authenticate
+
   # GET /events
   def index
 
       coords = [params[:latitude], params[:longitude]]
 
-     @events = Event.near(coords, 100)
+     # @events = Event.near(coords, 1000)
+     @events = Event.all
 
       render json: @events , each_serializer: EventSerializer
 
@@ -40,6 +43,23 @@ class EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     @event.destroy
+  end
+
+  protected
+
+  def authenticate
+    authenticate_token || render_unauthorized
+  end
+
+  def authenticate_token
+    authenticate_with_http_token do |token, options|
+      User.find_by(access_token: token)
+    end
+  end
+
+  def render_unauthorized
+    self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+    render json: 'Bad credentials', status: 401
   end
 
   private
