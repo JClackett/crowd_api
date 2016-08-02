@@ -6,12 +6,12 @@ class EventsController < ApplicationController
   # GET /events
   def index
 
-      coords = [params[:latitude], params[:longitude]]
+    coords = [params[:latitude], params[:longitude]]
 
-     # @events = Event.near(coords, 1000)
-     @events = Event.all
+     @events = Event.near(coords, 1000)
+     # @events = Event.all
 
-      render json: @events , each_serializer: EventSerializer
+    render json: @events , each_serializer: EventSerializer
 
   end
 
