@@ -22,7 +22,12 @@ class EventsController < ApplicationController
 
   # POST /events
   def create
+    
     @event = Event.new(event_params)
+    @event.user_id = @user.id
+
+    endtime = Time.now + event_params[:endtime].hours
+    @event.endtime = endtime
 
     if @event.save
       render json: @event, serializer: EventSerializer
@@ -53,7 +58,7 @@ class EventsController < ApplicationController
 
   def authenticate_token
     authenticate_with_http_token do |token, options|
-      User.find_by(access_token: token)
+      @user = User.find_by(access_token: token)
     end
   end
 

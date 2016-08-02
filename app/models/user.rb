@@ -62,7 +62,7 @@ before_create :set_access_token
 def self.koala(auth)
 	facebook_auth_token = auth['facebook_auth_token']
 	@graph = Koala::Facebook::API.new(facebook_auth_token)
-	profile = @graph.get_object("me?fields=email,name,picture")
+	profile = @graph.get_object("me?fields=email,name,picture.type(large)")
 	return profile
 end
 
