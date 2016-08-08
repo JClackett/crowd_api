@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+	before_action :authenticate, except: :create
 
 	def index
 		@users = User.all
 
-		render json: @users, via_serializer: UserSerializer
+		render json: @users, via_serializer: Users::IndexSerializer
 	end
 
 	def create
@@ -12,10 +13,11 @@ class UsersController < ApplicationController
 		@user = User.find_or_create_by(facebook_id)
 
 		profile = User.koala(user_params)
+		
 		@user.update_details(profile, user_params)
 
 		if @user.save
-			render json: @user, serializer: UserSerializer, root: nil
+			render json: @user, serializer: Users::CreateSerializer, root: nil
 		else
 			render json: { error: ('user_create_error') }, status: :unprocessable_entity
 		end

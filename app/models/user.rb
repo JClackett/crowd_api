@@ -1,6 +1,9 @@
 require 'securerandom'
 
 class User < ApplicationRecord
+
+before_create :set_access_token
+
 # ------------------------------------------------------------------------------
 # Includes & Extensions
 # ------------------------------------------------------------------------------
@@ -23,7 +26,9 @@ class User < ApplicationRecord
 # Associations
 # ------------------------------------------------------------------------------
 
-has_many :events
+has_many :events, through: :guests
+has_many :guests
+
 
 # ------------------------------------------------------------------------------
 # Validations
@@ -35,7 +40,6 @@ has_many :events
 # Callbacks
 # ------------------------------------------------------------------------------
 
-before_create :set_access_token
 
 # ------------------------------------------------------------------------------
 # Nested Attributes
