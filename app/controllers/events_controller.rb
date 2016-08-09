@@ -8,16 +8,16 @@ class EventsController < ApplicationController
 
     coords = [params[:latitude], params[:longitude]]
 
-     @events = Event.near(coords, 100)
+     @events = Event.near(coords, 10).where("endtime > ?", Time.now)
      # @events = Event.all
 
-    render json: @events , each_serializer: EventSerializer
+    render json: @events , each_serializer: Events::IndexSerializer
 
   end
 
   # GET /events/1
   def show
-    render json: @event, serializer: EventSerializer
+    render json: @event, serializer: Events::ShowSerializer
   end
 
   # POST /events
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
     @event.endtime = endtime
 
     if @event.save
-      render json: @event, serializer: EventSerializer
+      render json: @event
     else
       render json: { error: ('event_create_error') }, status: :unprocessable_entity
     end
@@ -52,20 +52,6 @@ class EventsController < ApplicationController
 
   protected
 
-  def authenticate
-    authenticate_token || render_unauthorized
-  end
-
-  def authenticate_token
-    authenticate_with_http_token do |token, options|
-      @user = User.find_by(access_token: token)
-    end
-  end
-
-  def render_unauthorized
-    self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-    render json: 'Bad credentials', status: 401
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
