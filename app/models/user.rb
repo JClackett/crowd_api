@@ -27,7 +27,7 @@ before_create :set_access_token
 # ------------------------------------------------------------------------------
 
 has_many :events, through: :guests
-has_many :guests
+has_many :guests, dependent: :destroy
 
 
 # ------------------------------------------------------------------------------
