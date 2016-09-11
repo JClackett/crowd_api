@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 
     coords = [params[:latitude], params[:longitude]]
 
-     @events = Event.near(coords, 10).where("endtime > ?", Time.now)
+    @events = Event.near(coords, 10).where("endtime > ?", Time.now)
      # @events = Event.all
 
     render json: @events , each_serializer: Events::IndexSerializer
