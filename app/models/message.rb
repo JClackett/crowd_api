@@ -1,4 +1,4 @@
-class Event < ApplicationRecord
+class Message < ApplicationRecord
 # ------------------------------------------------------------------------------
 # Includes & Extensions
 # ------------------------------------------------------------------------------
@@ -15,23 +15,19 @@ class Event < ApplicationRecord
 # Attributes
 # ------------------------------------------------------------------------------
 
-geocoded_by :where, latitude: :latitude, longitude: :longitude
+
 
 # ------------------------------------------------------------------------------
 # Associations
 # ------------------------------------------------------------------------------
 
-belongs_to :creator, :class_name => "User", :foreign_key => "user_id"
-has_many :users, through: :guests
-has_many :guests, dependent: :destroy
-has_many :messages
-
+	belongs_to :event
+	belongs_to :creator, :class_name => "User", :foreign_key => "user_id"
 
 # ------------------------------------------------------------------------------
 # Validations
 # ------------------------------------------------------------------------------
 
-  validates :title, presence: true
 
 
 # ------------------------------------------------------------------------------
