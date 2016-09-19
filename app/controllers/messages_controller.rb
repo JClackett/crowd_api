@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
 		@message.user_id = @user.id
 
 		if @message.save
-			render json: @message, status: :created, location: @message
+			render json: @message, status: :created
 		else
 			render json: @message.errors, status: :unprocessable_entity
 		end
