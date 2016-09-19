@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-
+	before_action :authenticate
 	before_action :set_event
 
 	# GET /messages
