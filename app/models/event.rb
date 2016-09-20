@@ -24,7 +24,7 @@ geocoded_by :where, latitude: :latitude, longitude: :longitude
 belongs_to :creator, :class_name => "User", :foreign_key => "user_id"
 has_many :users, through: :guests
 has_many :guests, dependent: :destroy
-has_many :messages
+has_many :messages, dependent: :destroy
 
 
 # ------------------------------------------------------------------------------
