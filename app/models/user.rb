@@ -34,7 +34,7 @@ has_many :guests, dependent: :destroy
 # Validations
 # ------------------------------------------------------------------------------
 
-
+validates_uniqueness_of :email, :facebook_id
 
 # ------------------------------------------------------------------------------
 # Callbacks
