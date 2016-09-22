@@ -7,5 +7,4 @@ Rails.application.routes.draw do
 	delete 'guests', :to => 'guests#destroy'
 	resources :users, only: [:create, :index]
 
-
 end
