@@ -12,10 +12,11 @@ class GuestsController < ApplicationController
 	# POST /guests
 	def create
 
+
 		@guest = Guest.new(guest_params)
 
 		if @guest.save
-			render json: @guest, serializer: Guests::CreateSerializer
+			render json: @event, serializer: Events::ShowSerializer
 		else
 			render json: { error: ('guest_create_error') }, status: :unprocessable_entity
 		end
@@ -23,9 +24,12 @@ class GuestsController < ApplicationController
 
 	# DELETE /events/1
 	def destroy
+
 		# Custom delete route to allow user and event params to be used as identifier
 		@guest= Guest.find_by(user_id: params["user_id"], event_id: params["event_id"])
 		@guest.destroy
+
+		render json: @event, serializer: Events::ShowSerializer
 	end
 
 	protected

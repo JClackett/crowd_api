@@ -1,24 +1,14 @@
-# README
+## Crowd Api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails API
 
-Things you may want to cover:
+Accompanies the app: https://github.com/JClackett/crowd
 
-* Ruby version
+# When runing the app on a simulator:
 
-* System dependencies
+Just run `rails server` in project directory
 
-* Configuration
+# To run on iphone/device
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Make sure you are on the same wifi as app server
+* Run `rails server -b 0.0.0.0` in project directory
